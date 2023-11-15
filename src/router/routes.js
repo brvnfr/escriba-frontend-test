@@ -3,11 +3,11 @@ export default [
     name: 'Master',
     path: '/',
     component: () => import('@/views/layout/Master.vue'),
-    redirect: '/clientes',
+    redirect: '/pessoas',
     children: [
       {
-        name: 'clientes',
-        path: 'clientes',
+        name: 'pessoas',
+        path: 'pessoas',
         component: () => import('@/views/Clients.vue'),
       },
       {

@@ -1,8 +1,10 @@
 import { createStore } from 'vuex';
-// import { clients } from './clients.module';
+import pessoas from './pessoas.module.js';
+// import produtos from './produtos.module.js';
+// import pedidos from './pedidos.module.js';
 const store = createStore({
   modules: {
-    // clients,
+    pessoas,
     // products,
     // orders,
   },
