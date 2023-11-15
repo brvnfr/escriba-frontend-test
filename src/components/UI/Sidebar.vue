@@ -19,7 +19,7 @@
       <div class="menu-man text-left px-1 whitespace-nowrap justify-center">
         <div class="profile flex justify-center items-center text-center p-5"></div>
         <div class="py-4 leading-none rounded-md cursor-pointer text-zinc-300 hover:text-yellow-400 hover:bg-zinc-800">
-          <router-link to="/clientes" class="px-2 flex space-x-2">
+          <router-link to="/pessoas" class="px-2 flex space-x-2">
             <font-awesome-icon :icon="['fas', 'users']" />
             <span v-show="dataOpenSideBar">Clientes</span></router-link
           >

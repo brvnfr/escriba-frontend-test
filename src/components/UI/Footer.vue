@@ -1,7 +1,7 @@
 <template>
   <footer class="w-full bg-zinc-100">
-    <div class="flex justify-center items-center text-center text-xs h-[25px]">
-      <p>&copy; {{ currentYear }} {{ companyName }}</p>
+    <div class="flex flex-row justify-center items-center text-center text-xs h-[25px]">
+      <p class="text-center">{{ companyName }} &copy; {{ currentYear }} Criado por <b>Bruno Onofre</b></p>
     </div>
   </footer>
 </template>

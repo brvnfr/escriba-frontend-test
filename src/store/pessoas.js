@@ -1,4 +1,4 @@
-import api from '@/api';
+import api from '@/services/api';
 
 const state = {
   pessoas: [],
@@ -6,20 +6,20 @@ const state = {
 };
 
 const mutations = {
-  LISTAR_PESSOAS(state, pessoas) {
+  CARREGAR_PESSOAS(state, pessoas) {
     state.pessoas = pessoas;
   },
   SET_LOADING(state, status) {
     state.loading = status;
   },
   ADD_PESSOA(state, novaPessoa) {
-    state.clientes.push(novaPessoa);
+    state.pessoas.push(novaPessoa);
   },
   DELETAR_PESSOA(state, id) {
-    state.pessoas = state.pessoas.filter((cliente) => cliente.id !== id);
+    state.pessoas = state.pessoas.filter((pessoa) => pessoa.id !== id);
   },
   ATUALIZAR_PESSOA(state, pessoaAtualizada) {
-    const index = state.pessoas.findIndex((cliente) => cliente.id === pessoaAtualizada.id);
+    const index = state.pessoas.findIndex((pessoa) => pessoa.id === pessoaAtualizada.id);
     if (index !== -1) {
       state.pessoas.splice(index, 1, pessoaAtualizada);
     }
@@ -27,11 +27,11 @@ const mutations = {
 };
 
 const actions = {
-  async listarPessoas({ commit }) {
+  async carregarPessoas({ commit }) {
     commit('SET_LOADING', true);
     try {
       const response = await api.get('/pessoas');
-      commit('LISTAR_PESSOAS', response.data);
+      commit('CARREGAR_PESSOAS', response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,6 +42,7 @@ const actions = {
     commit('SET_LOADING', true);
     try {
       const response = await api.post('/pessoas', novaPessoa);
+      console.log('response', response);
       commit('ADD_PESSOA', response.data);
     } catch (error) {
       console.error(error);
@@ -49,7 +50,7 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
-  async deletarCliente({ commit }, id) {
+  async deletarPessoa({ commit }, id) {
     commit('SET_LOADING', true);
     try {
       await api.delete(`/pessoas/${id}`);
@@ -60,7 +61,7 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
-  async atualizarCliente({ commit }, pessoaAtualizada) {
+  async atualizarPessoa({ commit }, pessoaAtualizada) {
     commit('SET_LOADING', true);
     try {
       await api.put(`/pessoas/${pessoaAtualizada.id}`, pessoaAtualizada);
@@ -74,7 +75,7 @@ const actions = {
 };
 
 const getters = {
-  pessoas: (state) => state.pessoas,
+  listarPessoas: (state) => state.pessoas,
   isLoading: (state) => state.loading,
 };
 
