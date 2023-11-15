@@ -45,13 +45,10 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.cpf }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.dataNascimento }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
-              <button @click="editarCliente(pessoa)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">
+              <button @click="editarPessoa(pessoa)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">
                 Editar
               </button>
-              <button
-                @click="deletarCliente(pessoa.id)"
-                class="ml-2 text-red-600 hover:text-red-900 focus:outline-none"
-              >
+              <button @click="deletarPessoa(pessoa.id)" class="ml-2 text-red-600 hover:text-red-900 focus:outline-none">
                 Deletar
               </button>
             </td>
