@@ -21,7 +21,7 @@ Projeto de CRUD application feita na etapa de teste tecnico do processo seletivo
 
 ## Instalação
 
-1. Clone o repositório: `git clone https://github.com/seu-usuario/seu-projeto.git`
+1. Clone o repositório: `https://github.com/brvnfr/escriba-frontend-test.git`
 2. Instale as dependências: `npm install`
 3. Inicie o servidor local: `npm run dev`
 4. Instale o json-server: `npm install -g json-server`
