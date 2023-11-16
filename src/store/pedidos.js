@@ -26,24 +26,6 @@ const mutations = {
       state.pedidos.splice(index, 1, pedidoAtualizado);
     }
   },
-  ADICIONAR_PRODUTO(state, { pedidoId, produto }) {
-    const pedido = state.pedidos.find((pedido) => pedido.id === pedidoId);
-    if (pedido) {
-      pedido.itens.push(produto);
-      pedido.valorTotal += produto.subtotal;
-    }
-  },
-
-  REMOVER_PRODUTO(state, { pedidoId, produtoId }) {
-    const pedido = state.pedidos.find((pedido) => pedido.id === pedidoId);
-    if (pedido) {
-      const index = pedido.itens.findIndex((item) => item.id === produtoId);
-      if (index !== -1) {
-        const produtoRemovido = pedido.itens.splice(index, 1)[0];
-        pedido.valorTotal -= produtoRemovido.subtotal;
-      }
-    }
-  },
 };
 
 const actions = {
@@ -58,18 +40,14 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
-  addPedido({ commit }, pedidoData) {
-    return new Promise((resolve, reject) => {
-      console.log(pedidoData);
-      // Simulando a geração do ID do pedido (você pode usar uma lógica real de geração de ID)
+  async addPedido({ commit }, pedidoData) {
+    try {
       const pedidoId = Math.floor(Math.random() * 1000) + 1;
 
       // Obter a data de emissão atual
       const dataEmissao = new Date().toISOString().split('T')[0];
-
-      // Calcular o valor total do pedido
+      // Calcula o valor total do pedido
       const valorTotal = pedidoData.itens.reduce((total, item) => total + item.subtotal, 0);
-
       const pedido = {
         id: pedidoId,
         cliente: {
@@ -80,12 +58,14 @@ const actions = {
         valorTotal,
         itens: pedidoData.itens,
       };
+
       commit('ADD_PEDIDO', pedido);
-      // Simular um tempo de resposta da API (remova isso no código real)
-      setTimeout(() => {
-        resolve(); // Resolva a Promise após adicionar o pedido à store (simulação)
-      }, 500);
-    });
+
+      toast.success('Pedido adicionado com sucesso');
+    } catch (error) {
+      console.error(error);
+      toast.error('Ocorreu um erro ao criar o pedido');
+    }
   },
   async deletarPedido({ commit }, id) {
     commit('SET_LOADING', true);
@@ -111,23 +91,6 @@ const actions = {
       toast.error('Ocorreu um erro ao atualizar o pedido.');
     } finally {
       commit('SET_LOADING', false);
-    }
-  },
-  async adicionarProduto({ commit }, { pedidoId, produto }) {
-    commit('ADICIONAR_PRODUTO', { pedidoId, produto });
-    try {
-      await api.post(`/pedidos/${pedidoId}/itens`, produto);
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  async removerProduto({ commit }, { pedidoId, produtoId }) {
-    commit('REMOVER_PRODUTO', { pedidoId, produtoId });
-    try {
-      await api.delete(`/pedidos/${pedidoId}/itens/${produtoId}`);
-    } catch (error) {
-      console.error(error);
     }
   },
 };
