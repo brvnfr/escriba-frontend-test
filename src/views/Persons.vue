@@ -3,9 +3,10 @@
     <div
       class="flex sm:flex-row flex-col sm:justify-between sm:items-center justify-start items-start mx-4 sm:-mx-6 px-4 sm:px-8 py-4"
     >
-      <!-- Conteúdo da div -->
+      <!-- Cabeçalho -->
       <h1 class="text-3xl font-bold">Cadastro de Pessoas</h1>
       <div>
+        <!--Botão Adicionar-->
         <button
           @click="addNovaPessoa"
           class="bg-yellow-400 hover:bg-yellow-500 text-zinc-950 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -14,6 +15,7 @@
         </button>
       </div>
     </div>
+    <!--Tabela de Listagem-->
     <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
       <table class="min-w-full bg-white border border-zinc-200">
         <thead>
@@ -41,6 +43,7 @@
             <th class="px-6 py-3 border-b border-gray-200 bg-zinc-800"></th>
           </tr>
         </thead>
+        <!--Skeleton da Tabela-->
         <tbody>
           <tr v-if="isLoading" v-for="n in 5" :key="n">
             <td>
@@ -59,18 +62,21 @@
               <div class="h-8 bg-gray-200 animate-pulse"></div>
             </td>
           </tr>
+          <!--Tabela de dados-->
           <tr v-else v-for="pessoa in pessoas" :key="pessoa.id">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.id }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.nome }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.cpf }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.dataNascimento }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
+              <!--Botão Editar-->
               <button
                 @click="editarPessoa(pessoa)"
                 class="w-full p-2 mb-1 rounded-md bg-zinc-600 text-white hover:bg-zinc-800 focus:outline-none"
               >
                 Editar
               </button>
+              <!--Botão Deletar-->
               <button
                 @click="deletarPessoa(pessoa.id)"
                 class="w-full p-2 rounded-md bg-red-600 text-white hover:bg-red-800 focus:outline-none"
@@ -82,14 +88,14 @@
         </tbody>
       </table>
     </div>
-    <!-------DIALOG-------->
+    <!-------Modal-------->
     <PersonModal :showModal="showModal" :mode="modalMode" :data="modalData" @closeModal="closeModal" />
   </main>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import PersonModal from '@/components/dialogs/PersonModal.vue'; // Importe o componente modal aqui
+import PersonModal from '@/components/dialogs/PersonModal.vue';
 
 export default {
   components: {
@@ -98,8 +104,8 @@ export default {
   data() {
     return {
       showModal: false,
-      modalMode: '', // 'edit' ou 'add'
-      modalData: {}, // Dados da pessoa para editar
+      modalMode: '',
+      modalData: {},
     };
   },
   created() {
