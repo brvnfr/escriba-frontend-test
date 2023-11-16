@@ -9,7 +9,7 @@
       <!--Botão Adicionar-->
       <button
         @click="addNovaPessoa"
-        class="bg-yellow-400 rounded-md hover:bg-yellow-500 text-zinc-950 font-bold py-2 px-12 rounded focus:outline-none focus:shadow-outline"
+        class="bg-yellow-400 rounded-md hover:bg-yellow-500 text-zinc-950 font-bold py-2 px-12 rounded focus:outline-none"
       >
         Adicionar Pessoa
       </button>
