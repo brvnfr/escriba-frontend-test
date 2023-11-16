@@ -144,7 +144,7 @@ export default {
       this.$nextTick(() => {
         const itens = this.formData.produtos.map((produto, index) => {
           const quantidade = parseInt(this.formData.quantidades[index] || 0, 10);
-          const subtotal = produto.valor * quantidade;
+          const subtotal = produto.valoUnitario * quantidade;
 
           return {
             id: produto.id,
@@ -152,26 +152,25 @@ export default {
               id: produto.id,
               descricao: produto.descricao,
             },
-            valor: produto.valor,
+            valor: produto.valoUnitario,
             quantidade,
             subtotal,
           };
         });
 
-        const valorTotal = itens.reduce((total, item) => total + item.subtotal, 0);
-
-        const pedido = {
-          cliente: {
-            id: this.formData.cliente.id,
-            nome: this.formData.cliente.nome,
-          },
-          dataEmissao: new Date().toISOString().split('T')[0],
-          valorTotal,
+        const pedidoData = {
+          cliente: { id: this.formData.cliente.id, nome: this.formData.cliente.nome },
           itens,
         };
 
-        this.$store.dispatch('pedidos/addPedido', pedido);
-        this.$emit('closeModal');
+        this.$store
+          .dispatch('pedidos/addPedido', pedidoData)
+          .then(() => {
+            this.$emit('closeModal');
+          })
+          .catch((error) => {
+            console.error('Erro ao adicionar pedido:', error);
+          });
       });
     },
   },

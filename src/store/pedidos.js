@@ -58,20 +58,34 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
-  async addPedido({ commit }, novoPedido) {
-    commit('SET_LOADING', true);
-    console.log('novo pedido:', novoPedido);
+  addPedido({ commit }, pedidoData) {
+    return new Promise((resolve, reject) => {
+      console.log(pedidoData);
+      // Simulando a geração do ID do pedido (você pode usar uma lógica real de geração de ID)
+      const pedidoId = Math.floor(Math.random() * 1000) + 1;
 
-    try {
-      const response = await api.post('/pedidos', novoPedido);
-      commit('ADD_PEDIDO', response.data);
-      toast.success('Pedido adicionado com sucesso!');
-    } catch (error) {
-      console.error(error);
-      toast.error('Ocorreu um erro ao adicionar o pedido.');
-    } finally {
-      commit('SET_LOADING', false);
-    }
+      // Obter a data de emissão atual
+      const dataEmissao = new Date().toISOString().split('T')[0];
+
+      // Calcular o valor total do pedido
+      const valorTotal = pedidoData.itens.reduce((total, item) => total + item.subtotal, 0);
+
+      const pedido = {
+        id: pedidoId,
+        cliente: {
+          id: pedidoData.cliente.id,
+          nome: pedidoData.cliente.nome,
+        },
+        dataEmissao,
+        valorTotal,
+        itens: pedidoData.itens,
+      };
+      commit('ADD_PEDIDO', pedido);
+      // Simular um tempo de resposta da API (remova isso no código real)
+      setTimeout(() => {
+        resolve(); // Resolva a Promise após adicionar o pedido à store (simulação)
+      }, 500);
+    });
   },
   async deletarPedido({ commit }, id) {
     commit('SET_LOADING', true);
