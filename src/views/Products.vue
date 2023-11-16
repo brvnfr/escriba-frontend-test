@@ -66,7 +66,7 @@
           <tr v-else v-for="produto in produtosFiltrados" :key="produto.id">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.id }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.descricao }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.valoUnitario }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">R$ {{ produto.valoUnitario }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
               <!-- Botão Editar -->
               <button
