@@ -1,6 +1,9 @@
 <template>
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-row justify-between items-center">
+    <div
+      class="flex sm:flex-row flex-col sm:justify-between sm:items-center justify-start items-start mx-4 sm:-mx-6 px-4 sm:px-8 py-4"
+    >
+      <!-- Conteúdo da div -->
       <h1 class="text-3xl font-bold">Cadastro de Pessoas</h1>
       <div>
         <button
@@ -11,8 +14,8 @@
         </button>
       </div>
     </div>
-    <div class="-mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
-      <table class="min-w-full bg-white border border-gray-200">
+    <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
+      <table class="min-w-full bg-white border border-zinc-200">
         <thead>
           <tr>
             <th
@@ -62,10 +65,16 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.cpf }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.dataNascimento }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
-              <button @click="editarPessoa(pessoa)" class="text-indigo-600 hover:text-indigo-900 focus:outline-none">
+              <button
+                @click="editarPessoa(pessoa)"
+                class="w-full p-2 mb-1 rounded-md bg-zinc-600 text-white hover:bg-zinc-800 focus:outline-none"
+              >
                 Editar
               </button>
-              <button @click="deletarPessoa(pessoa.id)" class="ml-2 text-red-600 hover:text-red-900 focus:outline-none">
+              <button
+                @click="deletarPessoa(pessoa.id)"
+                class="w-full p-2 rounded-md bg-red-600 text-white hover:bg-red-800 focus:outline-none"
+              >
                 Deletar
               </button>
             </td>
