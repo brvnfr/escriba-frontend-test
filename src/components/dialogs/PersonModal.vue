@@ -9,15 +9,15 @@
         <!-- Formulários -->
 
         <!--Nome-->
-        <form @submit.prevent="submitForm">
+        <form @submit.prevent="validateAndSubmit">
           <div class="mb-4">
             <label for="nome" class="block text-gray-700 font-semibold mb-1">Nome</label>
             <input
               v-model="formData.nome"
-              @input="validateNome"
               type="text"
+              @input="validateNome"
               id="nome"
-              class="w-full rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              class="w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
               placeholder="Nome"
             />
             <p v-if="!isValidNome" class="text-red-500 text-xs mt-1">Insira um nome válido.</p>
@@ -28,44 +28,44 @@
             <label for="cpf" class="block text-gray-700 font-semibold mb-1">CPF</label>
             <input
               v-model="formData.cpf"
-              @input="validateCPF"
               type="text"
               id="cpf"
-              class="w-full rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              class="w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
               placeholder="CPF"
+              @input="validateCPF"
             />
-            <p v-if="!isValidCpf" class="text-red-500 text-xs mt-1">Insira um CPF válido.</p>
+            <p v-if="!isValidCpf" class="text-red-500 text-xs mt-1">Insira um CPF válido (000.000.000-00).</p>
           </div>
 
           <!-- Data de Nascimento -->
           <div class="mb-4">
-            <label for="dataNascimento" class="block text-gray-700 font-semibold mb-1">Data de Nascimento</label>
+            <label for="dataNascimento" class="block gray-700 font-semibold mb-1">Data de Nascimento</label>
             <input
               v-model="formData.dataNascimento"
-              type="date"
-              @input="validateDataNascimento"
+              type="text"
               id="dataNascimento"
-              class="w-full rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-              placeholder="Data de Nascimento (DD/MM/AAAA)"
+              class="w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              placeholder="Data de Nascimento (DD-MM-AAAA)"
+              @input="validateDataNascimento"
             />
-            <p v-if="!isValidDataNascimento" class="text-red-500 text-xs mt-1">Insira uma data de nascimento válida.</p>
+            <p v-if="!isValidDataNascimento" class="text-red-500 text-xs mt-1">
+              Insira uma data de nascimento válida (DD-MM-AAAA).
+            </p>
           </div>
 
           <!-- Botões -->
           <div class="flex justify-end">
-            <!-- Botão Cancelar -->
             <button
               type="button"
               @click="closeModal"
-              class="mr-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+              class="mr-2 px-4 py-2 rounded text-red-400 hover:text-red-300 focus:outline-none"
             >
               Cancelar
             </button>
-            <!-- Botão Salvar/Adicionar (desabilitado se o formulário não for válido) -->
+
             <button
               type="submit"
-              :disabled="!formIsValid"
-              class="px-4 py-2 rounded bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+              class="px-4 py-2 rounded bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:bg-indigo-600"
             >
               {{ mode === 'edit' ? 'Salvar' : 'Adicionar' }}
             </button>
@@ -90,57 +90,72 @@ export default {
         cpf: '',
         dataNascimento: '',
       },
+      isValidNome: false,
+      isValidCpf: true,
+      isValidDataNascimento: true,
     };
   },
   watch: {
     data: {
       handler(newData) {
         if (newData) {
-          this.formData = { ...newData }; // Atualize os dados do formulário
+          this.formData = { ...newData };
         }
       },
       immediate: true,
     },
   },
   computed: {
-    formIsValid() {
-      return this.isValidNome && this.isValidCPF && this.isValidDataNascimento;
+    isFormValid() {
+      const nomeValid = this.isValidNome;
+      const cpfValid = this.isValidCpf;
+      const dataValid = this.isValidDataNascimento;
+
+      return nomeValid && cpfValid && dataValid;
     },
   },
   methods: {
+    validateAndSubmit() {
+      if (this.isValidNome && this.isValidCpf && this.isValidDataNascimento) {
+        this.handleSubmit();
+      } else {
+        alert('Por favor, preencha todos os campos corretamente.');
+      }
+    },
     handleSubmit() {
-      // Lógica para salvar/editar pessoa
-      // this.formData contém os dados do formulário
+      if (this.mode === 'edit') {
+        this.$store.dispatch('pessoas/atualizarPessoa', this.formData);
+      } else {
+        this.$store.dispatch('pessoas/addPessoa', this.formData);
+      }
       this.$emit('closeModal');
     },
     closeModal() {
       this.$emit('closeModal');
     },
 
-    //Validação
+    //Validações
 
     validateNome() {
-      const regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\u0020]{2,30}$/;
-      this.isValidNome = regex.test(this.formData.nome.trim());
+      this.isValidNome = this.formData.nome.trim() !== '';
     },
+
     validateCPF() {
-      const regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-      this.isValidCPF = regex.test(this.formData.cpf);
+      const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+      this.isValidCpf = cpfRegex.test(this.formData.cpf);
     },
     validateDataNascimento() {
-      const regex = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-      this.isValidDataNascimento = regex.test(this.formData.dataNascimento);
+      const dataRegex = /^\d{2}-\d{2}-\d{4}$/;
+      this.isValidDataNascimento = dataRegex.test(this.formData.dataNascimento);
     },
   },
 };
 </script>
 
 <style scoped>
-/* Estilos para o backdrop */
 .fixed {
   @screen sm {
-    /* Definindo a altura para telas menores */
-    height: 100vh; /* 64px é a altura do cabeçalho, ajuste conforme necessário */
+    height: 100vh;
   }
 }
 .bg-black {

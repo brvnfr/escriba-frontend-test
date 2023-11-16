@@ -39,10 +39,11 @@ const actions = {
     }
   },
   async addPessoa({ commit }, novaPessoa) {
+    const pessoaComID = { ...novaPessoa, id: Math.floor(Math.random() * 1000) }; // gera um id aleatorio para o cadastro
+
     commit('SET_LOADING', true);
     try {
-      const response = await api.post('/pessoas', novaPessoa);
-      console.log('response', response);
+      const response = await api.post('/pessoas', pessoaComID);
       commit('ADD_PESSOA', response.data);
     } catch (error) {
       console.error(error);
