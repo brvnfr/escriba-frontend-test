@@ -49,7 +49,7 @@
               @input="validateDataNascimento"
             />
             <p v-if="!isValidDataNascimento" class="text-red-500 text-xs mt-1">
-              Insira uma data de nascimento válida (DD-MM-AAAA).
+              Insira uma data de nascimento válida (AAAA-MM-DD).
             </p>
           </div>
 

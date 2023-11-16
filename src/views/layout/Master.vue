@@ -3,7 +3,7 @@
     <Sidebar :dataOpenSideBar="openSidebar" />
     <div class="w-full h-full">
       <Header :dataOpenSideBar="openSidebar" :clickHamburger="toggleSidebar" />
-      <div class="w-full h-[calc(100vh-50px)]">
+      <div class="w-full h-[calc(100vh-50px)] bg-zinc-50">
         <router-view></router-view>
       </div>
     </div>

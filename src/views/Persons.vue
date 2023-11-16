@@ -16,30 +16,47 @@
         <thead>
           <tr>
             <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
             >
               ID
             </th>
             <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
             >
               Nome
             </th>
             <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
             >
               CPF
             </th>
             <th
-              class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
             >
               Data de Nascimento
             </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-zinc-800"></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="pessoa in pessoas" :key="pessoa.id">
+          <tr v-if="isLoading" v-for="n in 5" :key="n">
+            <td>
+              <div class="h-8 bg-gray-200 animate-pulse"></div>
+            </td>
+            <td>
+              <div class="h-8 bg-gray-200 animate-pulse"></div>
+            </td>
+            <td>
+              <div class="h-8 bg-gray-200 animate-pulse"></div>
+            </td>
+            <td>
+              <div class="h-8 bg-gray-200 animate-pulse"></div>
+            </td>
+            <td>
+              <div class="h-8 bg-gray-200 animate-pulse"></div>
+            </td>
+          </tr>
+          <tr v-else v-for="pessoa in pessoas" :key="pessoa.id">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.id }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.nome }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.cpf }}</td>
