@@ -16,6 +16,15 @@
     </div>
     <!-- Tabela de Listagem -->
     <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
+      <!-- Input de Busca -->
+      <div class="flex justify-end mb-4">
+        <input
+          v-model="filtroDescricao"
+          type="text"
+          placeholder="Buscar por nome..."
+          class="w-full max-w-xs border-gray-300 rounded-md p-2 focus:outline-none"
+        />
+      </div>
       <table class="min-w-full bg-white border border-zinc-200">
         <thead>
           <tr>
@@ -54,7 +63,7 @@
             </td>
           </tr>
           <!-- Tabela de Dados -->
-          <tr v-else v-for="produto in produtos" :key="produto.id">
+          <tr v-else v-for="produto in produtosFiltrados" :key="produto.id">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.id }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.descricao }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ produto.valoUnitario }}</td>
@@ -96,15 +105,32 @@ export default {
       showModal: false,
       modalMode: '',
       modalData: {},
+      filtroDescricao: '',
     };
   },
   created() {
     this.carregarProdutos();
   },
+  watch: {
+    filtroDescricao: {
+      handler(newFiltro, oldFiltro) {
+        if (newFiltro !== oldFiltro) {
+        }
+      },
+      immediate: true,
+    },
+  },
   computed: {
     ...mapGetters('produtos', ['listarProdutos', 'isLoading']),
     produtos() {
       return this.listarProdutos;
+    },
+    produtosFiltrados() {
+      if (!this.filtroDescricao) {
+        return this.listarProdutos;
+      }
+      const filtro = this.filtroDescricao.toLowerCase();
+      return this.listarProdutos.filter((produto) => produto.descricao.toLowerCase().includes(filtro));
     },
   },
   methods: {
