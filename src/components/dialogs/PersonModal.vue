@@ -45,7 +45,7 @@
               type="text"
               id="dataNascimento"
               class="w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-              placeholder="Data de Nascimento (DD-MM-AAAA)"
+              placeholder="Data de Nascimento (AAAA-MM-DD)"
               @input="validateDataNascimento"
             />
             <p v-if="!isValidDataNascimento" class="text-red-500 text-xs mt-1">
@@ -86,11 +86,11 @@ export default {
   data() {
     return {
       formData: {
-        nome: '',
-        cpf: '',
-        dataNascimento: '',
+        nome: null,
+        cpf: null,
+        dataNascimento: null,
       },
-      isValidNome: false,
+      isValidNome: true,
       isValidCpf: true,
       isValidDataNascimento: true,
     };
@@ -116,6 +116,10 @@ export default {
   },
   methods: {
     validateAndSubmit() {
+      this.validateNome();
+      this.validateCPF();
+      this.validateDataNascimento();
+
       if (this.isValidNome && this.isValidCpf && this.isValidDataNascimento) {
         this.handleSubmit();
       } else {
@@ -137,16 +141,17 @@ export default {
     //Validações
 
     validateNome() {
-      this.isValidNome = this.formData.nome.trim() !== '';
+      this.isValidNome = this.formData.nome && this.formData.nome.trim() !== '';
     },
 
     validateCPF() {
       const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-      this.isValidCpf = cpfRegex.test(this.formData.cpf);
+      this.isValidCpf = this.formData.cpf && cpfRegex.test(this.formData.cpf);
     },
+
     validateDataNascimento() {
-      const dataRegex = /^\d{2}-\d{2}-\d{4}$/;
-      this.isValidDataNascimento = dataRegex.test(this.formData.dataNascimento);
+      const dataRegex = /^\d{4}-\d{2}-\d{2}$/;
+      this.isValidDataNascimento = this.formData.dataNascimento && dataRegex.test(this.formData.dataNascimento);
     },
   },
 };
