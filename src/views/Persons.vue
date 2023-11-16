@@ -1,19 +1,18 @@
 <template>
   <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
     <div
-      class="flex sm:flex-row flex-col sm:justify-between sm:items-center justify-start items-start mx-4 sm:-mx-6 px-4 sm:px-8 py-4"
+      class="gap-4 flex sm:flex-row flex-col sm:justify-between sm:items-center justify-start items-start mx-4 sm:-mx-6 px-4 sm:px-8 py-4"
     >
       <!-- Cabeçalho -->
       <h1 class="text-3xl font-bold">Cadastro de Pessoas</h1>
-      <div>
-        <!--Botão Adicionar-->
-        <button
-          @click="addNovaPessoa"
-          class="bg-yellow-400 hover:bg-yellow-500 text-zinc-950 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Adicionar Pessoa
-        </button>
-      </div>
+
+      <!--Botão Adicionar-->
+      <button
+        @click="addNovaPessoa"
+        class="bg-yellow-400 rounded-md hover:bg-yellow-500 text-zinc-950 font-bold py-2 px-12 rounded focus:outline-none focus:shadow-outline"
+      >
+        Adicionar Pessoa
+      </button>
     </div>
     <!--Tabela de Listagem-->
     <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
