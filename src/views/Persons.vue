@@ -11,7 +11,7 @@
         </button>
       </div>
     </div>
-    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div class="-mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
       <table class="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
@@ -56,13 +56,26 @@
         </tbody>
       </table>
     </div>
+    <!-------DIALOG-------->
+    <PersonModal :showModal="showModal" :mode="modalMode" :data="modalData" @closeModal="closeModal" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import PersonModal from '@/components/dialogs/PersonModal.vue'; // Importe o componente modal aqui
 
 export default {
+  components: {
+    PersonModal,
+  },
+  data() {
+    return {
+      showModal: false,
+      modalMode: '', // 'edit' ou 'add'
+      modalData: {}, // Dados da pessoa para editar
+    };
+  },
   created() {
     this.carregarPessoas();
   },
@@ -75,17 +88,20 @@ export default {
   methods: {
     ...mapActions('pessoas', ['carregarPessoas', 'addPessoa', 'deletarPessoa', 'atualizarPessoa']),
     addNovaPessoa() {
-      const novaPessoa = {
-        id: Math.floor(Math.random() * 1000), // Gera um ID aleatório
-        nome: '',
-        cpf: '',
-        dataNascimento: '',
-      };
-      this.addPessoa(novaPessoa);
+      this.showModal = true;
+      this.modalMode = 'add';
+      this.modalData = {}; // Limpa os dados do modal ao adicionar nova pessoa
     },
     editarPessoa(pessoa) {
-      // Implemente a lógica para editar um cliente (se necessário)
-      // Pode abrir um modal/formulário para editar os dados do cliente
+      this.showModal = true;
+      this.modalMode = 'edit';
+      this.modalData = pessoa;
+    },
+    closeModal() {
+      // Fecha o modal e limpa os dados
+      this.showModal = false;
+      this.modalMode = '';
+      this.modalData = {};
     },
   },
 };

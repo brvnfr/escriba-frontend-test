@@ -8,7 +8,7 @@ export default [
       {
         name: 'pessoas',
         path: 'pessoas',
-        component: () => import('@/views/Clients.vue'),
+        component: () => import('@/views/Persons.vue'),
       },
       {
         name: 'produtos',
