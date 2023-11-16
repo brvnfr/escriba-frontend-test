@@ -17,6 +17,16 @@
     </div>
     <!--Tabela de Listagem-->
     <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
+      <!-- Input de Busca -->
+      <div class="flex justify-end mb-4">
+        <input
+          v-model="filtroNome"
+          type="text"
+          placeholder="Buscar por nome..."
+          class="w-full max-w-xs border-gray-300 rounded-md p-2 focus:outline-none"
+        />
+      </div>
+
       <table class="min-w-full bg-white border border-zinc-200">
         <thead>
           <tr>
@@ -63,7 +73,7 @@
             </td>
           </tr>
           <!--Tabela de dados-->
-          <tr v-else v-for="pessoa in pessoas" :key="pessoa.id">
+          <tr v-else v-for="pessoa in pessoasFiltradas" :key="pessoa.id">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.id }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.nome }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ pessoa.cpf }}</td>
@@ -106,6 +116,7 @@ export default {
       showModal: false,
       modalMode: '',
       modalData: {},
+      filtroNome: '',
     };
   },
   created() {
@@ -113,8 +124,21 @@ export default {
   },
   computed: {
     ...mapGetters('pessoas', ['listarPessoas', 'isLoading']),
-    pessoas() {
-      return this.listarPessoas;
+    pessoasFiltradas() {
+      if (!this.filtroNome) {
+        return this.listarPessoas;
+      }
+      const filtro = this.filtroNome.toLowerCase();
+      return this.listarPessoas.filter((pessoa) => pessoa.nome.toLowerCase().includes(filtro));
+    },
+  },
+  watch: {
+    filtroNome: {
+      handler(newFiltro, oldFiltro) {
+        if (newFiltro !== oldFiltro) {
+        }
+      },
+      immediate: true,
     },
   },
   methods: {
