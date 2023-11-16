@@ -29,11 +29,11 @@ Projeto de CRUD application feita na etapa de teste tecnico do processo seletivo
 
 ## Como Usar
 
-Após iniciar o projeto e a API do projeto, utilizando o json-server, agora é só navegar pela url do projeto e testar as demais rotas e funcionalidades que a mesma apresenta.
+Após iniciar o projeto e a API do projeto, utilizando o json-server, é só navegar pela url do projeto e testar as demais rotas e funcionalidades que a mesma apresenta.
 
 ## Testes
 
-Foi criar a estrutura inicial de testes utilizando cypress, com interações minimas, que podem ser melhoradas posteriormente.
+Foi criado a estrutura inicial de testes utilizando cypress, com interações minimas, que podem ser melhoradas posteriormente.
 
 ### Testes E2E com Cypress
 
@@ -47,13 +47,13 @@ Foi criar a estrutura inicial de testes utilizando cypress, com interações min
 
 - Além da tela de pessoas, foi criada as telas de produtos e pedidos, conforme pedido no bonus :D
 
-- A Vuex store foi utilizada para gerenciar o consumo da API, bem como as operações CRUD na aplicação, tendo para cada pagina, a suas propriass actions e mutations.
+- A Vuex store foi utilizada para gerenciar o consumo da API, bem como as operações CRUD na aplicação, tendo para cada pagina, as suas proprias actions e mutations.
 
-- A tela de Pedidos, utiliza no seu formulario, select inputs para, selecionar usuarios e produtos cadastrados na API para realizar a emissão do pedido.
+- A tela de Pedidos, utiliza no seu formulario select inputs para, selecionar usuarios e produtos cadastrados na API e realizar a emissão do pedido.
 
 - As tabelas possuem skeleton que aparecem quando está carregando os dados da API ( usar throttling do navegador para emular conexão mais lenta torna mais perceptivel)
 
-- Os formulários de criação/edicão todos tem seus respectivos regex de validação.
+- Todos os formulários de criação/edicão possuem os seus respectivos regex de validação.
 
 - O layout é 100% responsivo e funciona bem em varias resoluções testadas.
 
