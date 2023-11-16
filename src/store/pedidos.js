@@ -20,12 +20,6 @@ const mutations = {
   REMOVE_PEDIDO(state, id) {
     state.pedidos = state.pedidos.filter((pedido) => pedido.id !== id);
   },
-  UPDATE_PEDIDO(state, pedidoAtualizado) {
-    const index = state.pedidos.findIndex((pedido) => pedido.id === pedidoAtualizado.id);
-    if (index !== -1) {
-      state.pedidos.splice(index, 1, pedidoAtualizado);
-    }
-  },
 };
 
 const actions = {
@@ -41,26 +35,25 @@ const actions = {
     }
   },
   async addPedido({ commit }, pedidoData) {
+    const pedidoId = Math.floor(Math.random() * 1000) + 1;
+
+    // Obter a data de emissão atual
+    const dataEmissao = new Date().toISOString().split('T')[0];
+    // Calcula o valor total do pedido
+    const valorTotal = pedidoData.itens.reduce((total, item) => total + item.subtotal, 0);
+    const pedido = {
+      id: pedidoId,
+      cliente: {
+        id: pedidoData.cliente.id,
+        nome: pedidoData.cliente.nome,
+      },
+      dataEmissao,
+      valorTotal,
+      itens: pedidoData.itens,
+    };
     try {
-      const pedidoId = Math.floor(Math.random() * 1000) + 1;
-
-      // Obter a data de emissão atual
-      const dataEmissao = new Date().toISOString().split('T')[0];
-      // Calcula o valor total do pedido
-      const valorTotal = pedidoData.itens.reduce((total, item) => total + item.subtotal, 0);
-      const pedido = {
-        id: pedidoId,
-        cliente: {
-          id: pedidoData.cliente.id,
-          nome: pedidoData.cliente.nome,
-        },
-        dataEmissao,
-        valorTotal,
-        itens: pedidoData.itens,
-      };
-
-      commit('ADD_PEDIDO', pedido);
-
+      const response = await api.post('/pedidos', pedido);
+      commit('ADD_PEDIDO', response);
       toast.success('Pedido adicionado com sucesso');
     } catch (error) {
       console.error(error);
@@ -76,19 +69,6 @@ const actions = {
     } catch (error) {
       console.error(error);
       toast.error('Ocorreu um erro ao remover o pedido.');
-    } finally {
-      commit('SET_LOADING', false);
-    }
-  },
-  async atualizarPedido({ commit }, pedidoAtualizado) {
-    commit('SET_LOADING', true);
-    try {
-      await api.put(`/pedidos/${pedidoAtualizado.id}`, pedidoAtualizado);
-      commit('UPDATE_PEDIDO', pedidoAtualizado);
-      toast.success('Pedido atualizado com sucesso!');
-    } catch (error) {
-      console.error(error);
-      toast.error('Ocorreu um erro ao atualizar o pedido.');
     } finally {
       commit('SET_LOADING', false);
     }

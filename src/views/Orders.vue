@@ -22,7 +22,7 @@
           <div class="flex flex-row justify-between p-4">
             <h2 class="text-xl font-semibold mb-2">Pedido ID: {{ pedido.id }}</h2>
             <button
-              @click="excluirPedido(pedido.id)"
+              @click="deletarPedido(pedido.id)"
               class="w-auto p-2 rounded-md bg-red-600 self-end text-white hover:bg-red-800 focus:outline-none"
             >
               Deletar
@@ -92,7 +92,7 @@
     </div>
 
     <!-- Modal de Edição/Adição de Pedido -->
-    <OrderModal :showModal="showModal" :mode="modalMode" :data="modalData" @closeModal="fecharModal" />
+    <OrderModal :showModal="showModal" :mode="modalMode" :data="modalData" @closeModal="closeModal" />
   </main>
 </template>
 
@@ -121,25 +121,18 @@ export default {
     },
   },
   methods: {
-    ...mapActions('pedidos', ['carregarPedidos', 'adicionarPedido', 'deletarPedido', 'atualizarPedido']),
+    ...mapActions('pedidos', ['carregarPedidos', 'adicionarPedido', 'deletarPedido']),
     adicionarNovoPedido() {
       this.showModal = true;
       this.modalMode = 'add';
       this.modalData = {}; // Limpar os dados do modal ao adicionar um novo pedido
     },
-    editarPedido(pedido) {
-      this.showModal = true;
-      this.modalMode = 'edit';
-      this.modalData = pedido;
-    },
-    fecharModal() {
+    closeModal() {
       // Fechar o modal e limpar os dados
       this.showModal = false;
       this.modalMode = '';
       this.modalData = {};
-    },
-    excluirPedido(pedidoId) {
-      this.$store.dispatch('pedidos/deletarPedido', pedidoId);
+      this.carregarPedidos();
     },
   },
 };
