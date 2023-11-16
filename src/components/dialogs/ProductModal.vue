@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 overflow-y-auto" v-show="showModal" @click.self="closeModal">
+  <div id="modal" class="fixed inset-0 overflow-y-auto" v-show="showModal" @click.self="closeModal">
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-black bg-opacity-50 fixed inset-0 z-40" @click.stop="closeModal"></div>
 
