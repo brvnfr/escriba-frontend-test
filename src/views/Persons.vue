@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+  <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
     <div
       class="flex sm:flex-row flex-col sm:justify-between sm:items-center justify-start items-start mx-4 sm:-mx-6 px-4 sm:px-8 py-4"
     >
@@ -84,7 +84,7 @@
     </div>
     <!-------DIALOG-------->
     <PersonModal :showModal="showModal" :mode="modalMode" :data="modalData" @closeModal="closeModal" />
-  </div>
+  </main>
 </template>
 
 <script>
