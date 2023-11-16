@@ -45,8 +45,10 @@ const actions = {
     try {
       const response = await api.post('/pessoas', pessoaComID);
       commit('ADD_PESSOA', response.data);
+      alert('Dados salvos com sucesso!');
     } catch (error) {
       console.error(error);
+      alert('Ocorreu um erro ao salvar os dados.');
     } finally {
       commit('SET_LOADING', false);
     }
