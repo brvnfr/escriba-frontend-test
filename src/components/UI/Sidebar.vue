@@ -9,7 +9,7 @@
         <img
           src="@/assets/images/logo.png"
           v-show="!dataOpenSideBar"
-          class="p-1 w-8 h-8 rounded-full ring-2 ring-yellow-400"
+          class="p-1 w-8 h-8 ring-8 ring-yellow-400"
           alt="Avatar"
         />
         <img v-show="dataOpenSideBar" src="@/assets/images/logo-full.png" class="p-1 w-full h-10" alt="Avatar" />

@@ -5,7 +5,7 @@
         <font-awesome-icon :icon="['fas', 'bars']" />
       </div>
 
-      <div class="p-3 h-[50px] w-[50px] bg-yellow-400 text-center hover:bg-yellow-300">
+      <div class="p-3 h-[50px] w-[50px] bg-yellow-400 text-center hover:bg-yellow-500">
         <font-awesome-icon :icon="['fas', 'user']" />
       </div>
     </div>
