@@ -16,11 +16,11 @@
     </div>
 
     <!-- Tabela de Listagem de Pedidos -->
-    <div class="mx-4 sm:-mx-6 px-4 sm:px-8 py-4 overflow-x-auto">
-      <div v-for="pedido in pedidos" :key="pedido.id" class="mb-8">
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="flex flex-row justify-between p-4">
-            <h2 class="text-xl font-semibold mb-2">Pedido ID: {{ pedido.id }}</h2>
+    <div class="bg-white mx-4 sm:-mx-6 px-4 sm:px-8 py-4">
+      <div v-for="pedido in pedidos" :key="pedido.id" class="mb-8 rounded-md shadow-md">
+        <div class="">
+          <div class="bg-zinc-800 flex flex-row justify-between p-4">
+            <h2 class="text-xl text-white font-semibold mb-2">Pedido ID: {{ pedido.id }}</h2>
             <button
               @click="deletarPedido(pedido.id)"
               class="w-auto p-2 rounded-md bg-red-600 self-end text-white hover:bg-red-800 focus:outline-none"
@@ -37,56 +37,58 @@
               <!-- Botão Deletar -->
             </div>
           </div>
-          <table class="min-w-full bg-white border border-zinc-200">
-            <thead>
-              <tr>
-                <th
-                  class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
-                >
-                  Descrição
-                </th>
-                <th
-                  class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
-                >
-                  Valor
-                </th>
-                <th
-                  class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
-                >
-                  Quantidade
-                </th>
-                <th
-                  class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
-                >
-                  Subtotal
-                </th>
-              </tr>
-            </thead>
-            <!-- Skeleton da Tabela -->
-            <tbody>
-              <tr v-if="isLoading" v-for="n in 5" :key="n">
-                <td>
-                  <div class="h-8 bg-gray-200 animate-pulse"></div>
-                </td>
-                <td>
-                  <div class="h-8 bg-gray-200 animate-pulse"></div>
-                </td>
-                <td>
-                  <div class="h-8 bg-gray-200 animate-pulse"></div>
-                </td>
-                <td>
-                  <div class="h-8 bg-gray-200 animate-pulse"></div>
-                </td>
-              </tr>
-              <!-- Tabela de Dados -->
-              <tr v-else v-for="item in pedido.itens" :key="item.id">
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ item.produto.descricao }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">R$ {{ item.valor }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ item.quantidade }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">R$ {{ item.subtotal }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-zinc-200 overflow-x-auto">
+              <thead>
+                <tr>
+                  <th
+                    class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
+                  >
+                    Descrição
+                  </th>
+                  <th
+                    class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
+                  >
+                    Valor
+                  </th>
+                  <th
+                    class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
+                  >
+                    Quantidade
+                  </th>
+                  <th
+                    class="px-6 py-3 border-b border-gray-200 bg-zinc-800 text-left text-xs leading-4 font-medium text-zinc-200 uppercase tracking-wider"
+                  >
+                    Subtotal
+                  </th>
+                </tr>
+              </thead>
+              <!-- Skeleton da Tabela -->
+              <tbody>
+                <tr v-if="isLoading" v-for="n in 5" :key="n">
+                  <td>
+                    <div class="h-8 bg-gray-200 animate-pulse"></div>
+                  </td>
+                  <td>
+                    <div class="h-8 bg-gray-200 animate-pulse"></div>
+                  </td>
+                  <td>
+                    <div class="h-8 bg-gray-200 animate-pulse"></div>
+                  </td>
+                  <td>
+                    <div class="h-8 bg-gray-200 animate-pulse"></div>
+                  </td>
+                </tr>
+                <!-- Tabela de Dados -->
+                <tr v-else v-for="item in pedido.itens" :key="item.id">
+                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ item.produto.descricao }}</td>
+                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">R$ {{ item.valor }}</td>
+                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ item.quantidade }}</td>
+                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">R$ {{ item.subtotal }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
