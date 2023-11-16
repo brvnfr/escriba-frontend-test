@@ -1,5 +1,7 @@
 import api from '@/services/api';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const state = {
   pessoas: [],
   loading: false,
@@ -45,10 +47,10 @@ const actions = {
     try {
       const response = await api.post('/pessoas', pessoaComID);
       commit('ADD_PESSOA', response.data);
-      alert('Dados salvos com sucesso!');
+      toast.success('Dados salvos com sucesso!');
     } catch (error) {
       console.error(error);
-      alert('Ocorreu um erro ao salvar os dados.');
+      toast.error('Ocorreu um erro ao salvar os dados.');
     } finally {
       commit('SET_LOADING', false);
     }
@@ -58,7 +60,9 @@ const actions = {
     try {
       await api.delete(`/pessoas/${id}`);
       commit('DELETAR_PESSOA', id);
+      toast.success('Dado deletado com sucesso!');
     } catch (error) {
+      toast.error('Ocorreu um erro ao deletar o dado.');
       console.error(error);
     } finally {
       commit('SET_LOADING', false);
@@ -69,7 +73,9 @@ const actions = {
     try {
       await api.put(`/pessoas/${pessoaAtualizada.id}`, pessoaAtualizada);
       commit('ATUALIZAR_PESSOA', pessoaAtualizada);
+      toast.success('Dado atualizado com sucesso!');
     } catch (error) {
+      toast.error('Ocorreu um erro ao atualizar os dados.');
       console.error(error);
     } finally {
       commit('SET_LOADING', false);
