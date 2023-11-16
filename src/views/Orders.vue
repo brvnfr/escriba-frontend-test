@@ -17,7 +17,17 @@
 
     <!-- Tabela de Listagem de Pedidos -->
     <div class="bg-white mx-4 sm:-mx-6 px-4 sm:px-8 py-4">
-      <div v-for="pedido in pedidos" :key="pedido.id" class="mb-8 rounded-md shadow-md">
+      <!-- Input de Busca por Nome do Cliente -->
+
+      <div class="flex justify-end mb-4">
+        <input
+          v-model="filtroCliente"
+          type="text"
+          placeholder="Buscar por nome do cliente..."
+          class="w-full max-w-xs border-gray-300 border rounded-md p-2 focus:outline-none"
+        />
+      </div>
+      <div v-for="pedido in pedidosFiltrados" :key="pedido.id" class="mb-8 rounded-md shadow-md">
         <div class="">
           <div class="bg-zinc-800 flex flex-row justify-between p-4">
             <h2 class="text-xl text-white font-semibold mb-2">Pedido ID: {{ pedido.id }}</h2>
@@ -111,6 +121,7 @@ export default {
       showModal: false,
       modalMode: '',
       modalData: {},
+      filtroCliente: '',
     };
   },
   created() {
@@ -120,6 +131,13 @@ export default {
     ...mapGetters('pedidos', ['listarPedidos', 'isLoading']),
     pedidos() {
       return this.listarPedidos;
+    },
+    pedidosFiltrados() {
+      if (!this.filtroCliente) {
+        return this.listarPedidos;
+      }
+      const filtro = this.filtroCliente.toLowerCase();
+      return this.listarPedidos.filter((pedido) => pedido.cliente.nome.toLowerCase().includes(filtro));
     },
   },
   methods: {

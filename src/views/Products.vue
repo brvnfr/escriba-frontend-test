@@ -22,7 +22,7 @@
           v-model="filtroDescricao"
           type="text"
           placeholder="Buscar por nome..."
-          class="w-full max-w-xs border-gray-300 rounded-md p-2 focus:outline-none"
+          class="w-full max-w-xs border-gray-300 border rounded-md p-2 focus:outline-none"
         />
       </div>
       <table class="min-w-full bg-white border border-zinc-200">
